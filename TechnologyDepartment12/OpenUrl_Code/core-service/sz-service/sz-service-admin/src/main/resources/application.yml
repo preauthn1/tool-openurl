@@ -1,0 +1,124 @@
+spring:
+  threads:
+    virtual:
+      # 启用虚拟线程
+      enabled: true
+  profiles:
+    active: local
+  config:
+    import:
+      - classpath:config/${spring.profiles.active}/flyway.yml
+      - classpath:config/${spring.profiles.active}/knife4j.yml
+      - classpath:config/${spring.profiles.active}/minio.yml
+      - classpath:config/${spring.profiles.active}/mybatis-flex.yml
+      - classpath:config/${spring.profiles.active}/mysql.yml
+      - classpath:config/${spring.profiles.active}/page-helper.yml
+      - classpath:config/${spring.profiles.active}/redis.yml
+      - classpath:config/${spring.profiles.active}/sa-token.yml
+  mvc:
+    path-match:
+      matching-strategy: ant_path_matcher
+  application:
+    name: admin-service
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 15MB
+app:
+  version: @project.version@
+sz:
+  # 是否启用数据权限拼接
+  data-scope:
+    enabled: true
+    # 数据逻辑实现最小验证（查询）单位：dept 部门（dept_scope字段）、user 用户 (create_id 字段),默认user。
+    logic-min-unit: user
+  debounce:
+    # 是否启用防抖功能
+    enabled: false
+    # 全局防抖时间，单位毫秒（默认1000ms）
+    global-lock-time: 500
+    # 是否忽略GET请求
+    ignore-get-method: true
+  # 生成工具
+  generator:
+    path:
+      # 前端项目地址
+      web:
+      # 后端项目地址，默认自动检测springboot项目路径，无需配置。
+      api: E://code//Gitlab//sz-framework//sz-admin
+    # 模块名，指定代码生成的模块
+    module-name: sz-service
+    service-name: sz-service-admin
+    global:
+      author: sz-admin
+      packages: com.sz.admin
+  # 微信生态
+  wechat:
+    # 小程序
+    mini:
+      app-id: your_app_id
+      app-secret: your_app_secret
+
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: delFlag # 全局逻辑删除字段名
+      logic-delete-value: 1 # 逻辑已删除值
+      logic-not-delete-value: 0 # 逻辑未删除值
+  mapper-locations: classpath*:/mapper/*/*Mapper.xml
+  # 打印语句
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #sql打印语句
+
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+
+
+aj:
+  captcha:
+    # 滑动验证，底图路径，不配置将使用默认图片
+    jigsaw: classpath:images/jigsaw
+    pic-click: classpath:images/pic-click
+    cache-type: redis
+    type: default
+    # XinQT量化交易（转换地址：https://tool.chinaz.com/tools/unicode.aspx）
+    water-mark: 通风计算
+    slip-offset: 5
+    aes-status: true
+    interference-options: 2
+    font-style: 1
+    font-size: 25
+    history-data-clear-enable: false
+    # 接口请求次数一分钟限制是否开启 true|false
+    req-frequency-limit-enable: false
+    # 验证失败5次，get接口锁定
+    req-get-lock-limit: 5
+    # 验证失败后，锁定时间间隔,s
+    req-get-lock-seconds: 360
+    # get接口一分钟内请求数限制
+    req-get-minute-limit: 30
+    # check接口一分钟内请求数限制
+    req-check-minute-limit: 60
+    # verify接口一分钟内请求数限制
+    areq-verify-minute-limit: 60
+
+
+jmemoir:
+  safe:
+    params:
+      encrypt:
+        # 是否启用
+        enabled: true
+        # 请求头部标识
+        req-head: reqHead
+        # 请求参数标识
+        req-body: reqBody
+        # 加密公钥
+        public-key: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCU+onEOZAEg/qOsTWaqaWz/0u/My9up84vKpOj/iRXKMUg6tm9NBVV7K1vpXUwWuwyNYX2N3vzK6luKXMAVgx0WdMKr+zP6vO2MyD/FaTprVAoNgxXH8CGCZZ3IKW0lRhGEsSmgo1qrdw8uk2XxHs7RLst6l1Rh0PmK/Jr1A39NwIDAQAB
+        # 加密私钥
+        private-key: MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJT6icQ5kASD+o6xNZqppbP/S78zL26nzi8qk6P+JFcoxSDq2b00FVXsrW+ldTBa7DI1hfY3e/MrqW4pcwBWDHRZ0wqv7M/q87YzIP8VpOmtUCg2DFcfwIYJlncgpbSVGEYSxKaCjWqt3Dy6TZfEeztEuy3qXVGHQ+Yr8mvUDf03AgMBAAECgYAKA3EBHHFerFRKBQU6WQ7HM3Cu8EzO3j6QkwcLbciZhycA2Gg8PGT2uorJx1BCKMpZcZmIfCA7rwKbYfPV4PLDQIKjNuuMw4graS89zZh/fQOQju6rNgxOvn1Gm+mkgJecg1vRu4aRvKWfv0VjZwceWLsE1ZGPNKTD0eopn5ymcQJBAJ/g3CXGKnPx/V/AkFGsK2gMyWM5OR/RsLOR3hcIy7+4kLt3jmzno8QqT2mfcba1Wy7JbLozhH2MfZ8DO84lwikCQQDujBafJPq3SWHOSF+bVMszXETRIEle3S2gLCs+8tawDpKW6ynn83Zo8pZDicmCYYu125RnpBbzDZExK6ejcXBfAkB2Ccw/z1kUlXteMIvc4OKDRb2CFoOIbIarbWytUP8tI5Un85Mh8LvGXv6WmvOX07nohypRJywQjaNJvVdwUgxRAkEAyXe7K1GaBe6OEiCBzriAnbIR1OWF0f7PJ/Xl2FZUB4FnQNsAG4w9t0kaq5PVgq5Lxp3a6uVlFIWi2HpcLOgD1QJARNvbxn9hOwcoY/85MN5gTMMvDsMJuGmfSuqswiLnPvwLa2HoEW+N46nXH0vLc0zGaUFCil76PxIEIl4x42165g==
+        # 白名单
+        white-url-list:
+          - /mini/websocket/**

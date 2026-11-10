@@ -1,0 +1,47 @@
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# Node
+node_modules/
+dist/
+build/
+release/
+.npm/
+.pnpm-store/
+
+# Frontend env local overrides
+.env.local
+.env.*.local
+
+# Java / Maven
+**/target/
+**/out/
+*.class
+*.jar
+*.war
+*.zip
+
+# Runtime caches
+.cache/
+.tmp/
+tmp/
+
+# Certificates / secrets
+**/weChatPay/
+**/*.pem
+**/*.p12
+**/*.key
+
+# Generated docs / binaries
+*.exe
+*.blockmap
+
+# Misc large artifacts
+report_final.docx

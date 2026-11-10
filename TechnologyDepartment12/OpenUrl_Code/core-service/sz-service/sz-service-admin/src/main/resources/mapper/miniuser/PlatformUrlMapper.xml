@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sz.applet.mapper.PlatformUrlMapper">
+
+    <select id="pageList" resultType="com.sz.applet.pojo.po.PlatformUrl">
+        select
+            pu.*,
+            p.name as platform_name
+        from
+            platform_url pu
+            left join platform p on p.id = pu.platform_id
+        <where>
+            <if test="search.id != null">
+                pu.platform_id = #{search.id}
+            </if>
+            <if test="search.status != null">
+                and p.status = #{search.status}
+            </if>
+        </where>
+    </select>
+</mapper>

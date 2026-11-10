@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,       // 跳过库文件检查
+    "noEmit": true,             // 不生成输出文件，仅做语法检查
+    "strict": false,            // 关闭严格模式
+    "noImplicitAny": false,     // 允许隐式的 any 类型
+    "suppressImplicitAnyIndexErrors": true // 允许索引隐式 any
+  },
+  "exclude": ["node_modules", "dist"],  // 排除目录
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    }
+  ]
+}

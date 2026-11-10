@@ -1,0 +1,16 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "src/**/*.ts", "package.json"],
+  "exclude": ["src/**/__tests__/*", "node_modules", "dist"],
+  "compilerOptions": {
+    "skipLibCheck": true,       // 跳过库文件检查
+    "noEmit": true,             // 不生成输出文件，仅做语法检查
+    "strict": false,            // 关闭严格模式
+    "noImplicitAny": false,     // 允许隐式的 any 类型
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
